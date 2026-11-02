@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Student Assignment Tracker{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+{% if user.is_authenticated %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{% url 'assignments:assignment_list' %}"><span class="brand-mark">✓</span><span>Task<span class="brand-light">wise</span><small>STUDENT WORKSPACE</small></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <a class="nav-link {% if request.resolver_match.url_name == 'assignment_list' %}active{% endif %}" href="{% url 'assignments:assignment_list' %}"><span>▦</span> Overview</a>
+    <a class="nav-link" href="{% url 'assignments:assignment_create' %}"><span>＋</span> New assignment</a>
+    <div class="side-label">YOUR ACCOUNT</div>
+    <a class="nav-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}" href="{% url 'assignments:profile' %}"><span>◎</span> Profile</a>
+    <a class="nav-link" href="{% url 'password_change' %}"><span>⌑</span> Change password</a>
+    <div class="sidebar-bottom"><div class="avatar">{{ user.username|first|upper }}</div><div class="user-meta"><strong>{{ user.get_full_name|default:user.username }}</strong><small>Student account</small></div><form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="logout" title="Sign out">↗</button></form></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar"><span class="eyebrow">ACADEMIC PRODUCTIVITY</span><span class="top-user">{{ user.username }}</span></header>
+    {% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% else %}
+<div class="auth-shell"><a class="brand auth-brand" href="{% url 'home' %}"><span class="brand-mark">✓</span><span>Task<span class="brand-light">wise</span><small>STUDENT WORKSPACE</small></span></a>{% if messages %}<div class="messages">{% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% block auth_content %}{% endblock %}</div>
+{% endif %}
+</body></html>

@@ -1,0 +1,11 @@
+PACKAGE CONTENTS AND VERIFICATION NOTE
+
+This ZIP is a clean reconstructed Django edition based on the documented Student Assignment Tracker features and code context. It is not a direct copy of the user's Windows folder, because that folder was not attached or accessible in this chat.
+
+The package includes source code, templates, static CSS, migration, README, and an automated 17-test suite. The project was assembled in this environment, but Django could not be installed here because package download/network access was unavailable. Therefore, do not treat the included test suite as having been run in this environment.
+
+In the user's earlier local run, they reported:
+- Django system check: no issues
+- Assignments app test suite: 17 tests passed
+
+Run the setup and test commands in README.md after extraction to verify this reconstructed package on your Windows computer.
